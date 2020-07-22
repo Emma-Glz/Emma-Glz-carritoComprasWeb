@@ -30,6 +30,30 @@ public class ProductoDAO {
     PreparedStatement pst;
     ResultSet rs;
     //TRAE TODOS LOS REGISTROS CORRESPONDIENDO A LA COLUMNA DE LA TABLA
+    
+    public Producto listarId(int id){
+        String sql="select * from producto where idProducto=" +id;
+        Producto p=new Producto();
+        try{
+            con=cn.getConnection();
+            pst=con.prepareStatement(sql);
+            rs=pst.executeQuery();
+            while(rs.next()){
+              p.setId(rs.getInt(1));
+              p.setNombres(rs.getString(2));
+              p.setDescripcion(rs.getString(3));
+              p.setFoto(rs.getBinaryStream(4));
+              p.setPrecio(rs.getDouble(5));
+              p.setStock(rs.getInt(6));
+            }
+        
+        }catch(Exception e){
+        
+        }
+        return p;
+    }
+    
+    
     public List listar(){// obtiene el producto a traves de el id y la clase Producto  
         List<Producto> productos = new ArrayList();
         String sql = "select * from producto";

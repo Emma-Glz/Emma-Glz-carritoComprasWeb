@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import mx.uaemex.modelo.Carrito;
 import mx.uaemex.modelo.Producto;
 import mx.uaemex.modelo.ProductoDAO;
 
@@ -34,14 +35,39 @@ public class Controlador extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     ProductoDAO pdao = new ProductoDAO();
+    Producto p=new Producto();
     List<Producto> productos= new ArrayList<>(); 
+    List<Carrito>  listaCarrito = new ArrayList<>();
+    int item;
+    double totalPagar=0.0;
+    int cantidad =1;
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     String accion=request.getParameter("accion");
     productos = pdao.listar();//trae los registros
     switch(accion){
-        case "ejemplo":
+        case "AgregarCarrito":
+            int idp = Integer.parseInt(request.getParameter("id"));
+            p=pdao.listarId(idp);
+            item=item+1;
+            Carrito car=new Carrito();
+            car.setItem(item);
+            car.setIdProducto(p.getId());
+            car.setNombres(p.getNombres());
+            car.setDescripcion(p.getDescripcion());
+            car.setPrecioCompra(p.getPrecio());
+            car.setCantidad(cantidad);
+            car.setSubTotal(cantidad*p.getPrecio());
+            listaCarrito.add(car);
+            request.setAttribute("contador", listaCarrito.size());
+            request.getRequestDispatcher("Controlador?accion=home").forward(request, response);
+            
+            
         break;
+        case "Carrito":
+        break;
+        
         default:
         request.setAttribute("producto",productos);// El primero hace referencia a un nombre para pasarlo a index
         request.getRequestDispatcher("index.jsp").forward(request,response);
