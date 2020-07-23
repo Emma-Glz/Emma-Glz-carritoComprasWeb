@@ -4,17 +4,19 @@
     Author     : sug-0
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Carrito Compras</title>
          <link href="fontawesome/css/all.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         
     </head>
     <body>
+        <!--HEARDER-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <a class="navbar-brand" href="#">Game Experience</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,7 +62,8 @@
                     <div class="col-sm-8">
                         <table class="table table-hover">
                             <thead>
-                                <tr>
+                                
+                                 <tr>
                                     <th>ITEM</th>
                                     <th>NOMBRES</th>
                                     <th>DESCRIPCION</th>
@@ -71,15 +74,20 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <c:forEach var="car" items="${Carrito}">
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>${car.getItem()}</td>
+                                    <td>${car.getNombres()}</td>
+                                    <td>${car.getDescripcion()}</td>
+                                    <td>${car.getPrecioCompra()}</td>
+                                    <td>${car.Cantidad()}</td>
+                                    <td>${car.getSubTotal()}</td>
+                                    <td>
+                                        <a href="#" >Eliminar</a>
+                                        <a href="#" >Editar</a>
+                                    </td>
                                 </tr>
+                                </c:forEach>
                             </tbody>
                         </table>
                     </div>
