@@ -42,7 +42,7 @@
                       <a class="nav-link" href="#">Ofertas del dia</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-cart-plus">(<label style="color: orange" >${contador}</label>)</i>Carrito</a>
+                        <a class="nav-link" href="Controlador?accion=Carrito"><i class="fas fa-cart-plus">(<label style="color: orange" >${contador}</label>)</i>Carrito</a>
                     </li>
                     
                   </ul>
