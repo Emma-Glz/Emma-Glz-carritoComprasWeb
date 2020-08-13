@@ -66,7 +66,7 @@
                                  <tr>
                                     <th>ITEM</th>
                                     <th>NOMBRES</th>
-                                    <th>DESCRIPCION</th>
+                                    <th>FOTO</th>
                                     <th>PRECIO</th>
                                     <th>CANTIDAD</th>
                                     <th>SUBTOTAL</th>
@@ -78,9 +78,12 @@
                                 <tr>
                                     <td>${car.getItem()}</td>
                                     <td>${car.getNombres()}</td>
-                                    <td>${car.getDescripcion()}</td>
+                                    <td>
+                                        <img src="ControladorIMG?id=${car.getIdProducto()}" width="100" height="100">
+                                    </td>
+                                
                                     <td>${car.getPrecioCompra()}</td>
-                                    <td>${car.Cantidad()}</td>
+                                    <td>${car.getCantidad()}</td>
                                     <td>${car.getSubTotal()}</td>
                                     <td>
                                         <a href="#" >Eliminar</a>
@@ -98,11 +101,11 @@
                             </div>
                             <div class="card-body">
                                 <label>Subtotal:</label>
-                                <input type="text" readonly="" class="form-control">
+                                <input type="text" value="$.${totalPagar}0" readonly="" class="form-control">
                                 <label>Descuento:</label>
-                                <input type="text" readonly="" class="form-control">
+                                <input type="text"  value="$0.00"readonly="" class="form-control">
                                 <label>Total Pagar:</label>
-                                <input type="text" readonly="" class="form-control">
+                                <input type="text" value="$.${totalPagar}" readonly="" class="form-control">
                                 
                             </div>
                             <div class="card-footer">
