@@ -36,22 +36,46 @@ public class Controlador extends HttpServlet {
      */
     ProductoDAO pdao = new ProductoDAO();
     Producto p=new Producto();
-    List<Producto> productos= new ArrayList<>(); 
+    List<Producto> productos= new ArrayList<>();//ARRAYLIS DE PRODCUTOS 
     List<Carrito>  listaCarrito = new ArrayList<>();
     int item;
     double totalPagar=0.0;
     int cantidad =1;
     
+    int idp;
+    Carrito car =new Carrito();
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     String accion=request.getParameter("accion");
     productos = pdao.listar();//trae los registros
     switch(accion){
-        case "AgregarCarrito":
-            int idp = Integer.parseInt(request.getParameter("id"));
+        case "Comprar":
+            totalPagar=0.0;
+            idp = Integer.parseInt(request.getParameter("id"));
             p=pdao.listarId(idp);
             item=item+1;
-            Carrito car=new Carrito();
+            car=new Carrito();
+            car.setItem(item);
+            car.setIdProducto(p.getId());
+            car.setNombres(p.getNombres());
+            car.setDescripcion(p.getDescripcion());
+            car.setPrecioCompra(p.getPrecio());
+            car.setCantidad(cantidad);
+            car.setSubTotal(cantidad*p.getPrecio());
+            listaCarrito.add(car);
+            for(int i = 0; i<listaCarrito.size();i++){
+               totalPagar=totalPagar+listaCarrito.get(i).getSubTotal();// EL METODO GET()DEVUELVE EL ELEMENTO QUE ESTA EN LA POSICION 'i' DEL ARRAYLIST
+            }
+            request.setAttribute("totalPagar",totalPagar);
+            request.setAttribute("Carrito",listaCarrito);
+            request.setAttribute("contador", listaCarrito.size());
+            request.getRequestDispatcher("carrito.jsp").forward(request,response);
+        break;
+        case "AgregarCarrito":
+            idp = Integer.parseInt(request.getParameter("id"));
+            p=pdao.listarId(idp);
+            item=item+1;
+            car= new Carrito();
             car.setItem(item);
             car.setIdProducto(p.getId());
             car.setNombres(p.getNombres());
@@ -62,8 +86,7 @@ public class Controlador extends HttpServlet {
             listaCarrito.add(car);
             request.setAttribute("contador", listaCarrito.size());
             request.getRequestDispatcher("Controlador?accion=home").forward(request, response);
-            
-            
+   
         break;
         case "Carrito":
             totalPagar=0.0;            

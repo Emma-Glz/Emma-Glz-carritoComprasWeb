@@ -55,6 +55,7 @@
                     </ul>
                 </div>
             </nav>
+        <!--END HEADER-->
             <div class="container mt-4">
                 <h3>Carrito</h3>
                 <br>
@@ -74,7 +75,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach var="car" items="${Carrito}">
+                                <c:forEach var="car" items="${Carrito}"><!--RECORRE LOS ELEMENTOS DE UNA COLECCION-->
                                 <tr>
                                     <td>${car.getItem()}</td>
                                     <td>${car.getNombres()}</td>

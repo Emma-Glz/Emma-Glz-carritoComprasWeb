@@ -39,7 +39,7 @@ public class ProductoDAO {
             pst=con.prepareStatement(sql);
             rs=pst.executeQuery();
             while(rs.next()){
-              p.setId(rs.getInt(1));
+              p.setId(rs.getInt(1));//PASAMOS ARGUMENTO
               p.setNombres(rs.getString(2));
               p.setDescripcion(rs.getString(3));
               p.setFoto(rs.getBinaryStream(4));

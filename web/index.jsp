@@ -65,11 +65,12 @@
                     </ul>
                 </div>
             </nav>
+        <!--ENDHEADER-->
         <!-- CENTER-->
-        <div class="container mt-2"> 
+        <div class="container mt-4"> 
             <div class="row">
                 <c:forEach var="p" items="${producto}">
-                 <div class="col-sm-4">
+                 <div class="col-sm-4 mb-4">
                     <div class="card">
                         <div class="card-header">
                             <label>${p.getNombres()}</label>
@@ -83,7 +84,7 @@
                             <label>${p.getDescripcion()}</label>
                             <div>
                                 <a href="Controlador?accion=AgregarCarrito&id=${p.getId()}" class="btn btn-outline-info">Agregar a Carrito</a>
-                                <a class="btn btn-danger">Comprar</a>
+                                <a href="Controlador?accion=Comprar&id=${p.getId()}" class="btn btn-danger">Comprar</a>
                             </div>
                         </div>
                     </div>   
