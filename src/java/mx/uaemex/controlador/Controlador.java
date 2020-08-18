@@ -88,6 +88,15 @@ public class Controlador extends HttpServlet {
             request.getRequestDispatcher("Controlador?accion=home").forward(request, response);
    
         break;
+        case "Delete":
+        int idProducto=Integer.parseInt(request.getParameter("idp"));
+            for(int i = 0; i < listaCarrito.size(); i++){
+                if(listaCarrito.get(i).getIdProducto()==idProducto){
+                    listaCarrito.remove(i);
+                }
+            }
+        break;
+        
         case "Carrito":
             totalPagar=0.0;            
             request.setAttribute("Carrito",listaCarrito);
