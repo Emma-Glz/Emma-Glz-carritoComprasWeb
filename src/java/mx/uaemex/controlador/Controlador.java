@@ -72,8 +72,36 @@ public class Controlador extends HttpServlet {
             request.getRequestDispatcher("carrito.jsp").forward(request,response);
         break;
         case "AgregarCarrito":
-            idp = Integer.parseInt(request.getParameter("id"));
+            int pos=0;
+            cantidad = 1;
+            idp = Integer.parseInt(request.getParameter("id"));//3
+            
             p=pdao.listarId(idp);
+            if(listaCarrito.size() > 0){
+                for(int i = 0; i < listaCarrito.size(); i++){
+                    if(idp==listaCarrito.get(i).getIdProducto()){
+                        pos= i ;
+                    }
+                }     
+                    if(idp==listaCarrito.get(pos).getIdProducto()){
+                        cantidad = listaCarrito.get(pos).getCantidad() + cantidad;
+                        double subtotal = listaCarrito.get(pos).getPrecioCompra()*cantidad;
+                        listaCarrito.get(pos).setCantidad(cantidad);
+                        listaCarrito.get(pos).setSubTotal(subtotal);
+                    } else {
+                        item=item+1;
+                        car= new Carrito();
+                        car.setItem(item);
+                        car.setIdProducto(p.getId());
+                        car.setNombres(p.getNombres());
+                        car.setDescripcion(p.getDescripcion());
+                        car.setPrecioCompra(p.getPrecio());
+                        car.setCantidad(cantidad);
+                        car.setSubTotal(cantidad*p.getPrecio());
+                        listaCarrito.add(car);
+                    } 
+                
+            } else {
             item=item+1;
             car= new Carrito();
             car.setItem(item);
@@ -84,6 +112,7 @@ public class Controlador extends HttpServlet {
             car.setCantidad(cantidad);
             car.setSubTotal(cantidad*p.getPrecio());
             listaCarrito.add(car);
+            }
             request.setAttribute("contador", listaCarrito.size());
             request.getRequestDispatcher("Controlador?accion=home").forward(request, response);
    
