@@ -6,7 +6,6 @@
 package mx.uaemex.controlador;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -125,7 +124,16 @@ public class Controlador extends HttpServlet {
                 }
             }
         break;
-        
+        case "ActualizarCantidad":
+            int idpro=Integer.parseInt(request.getParameter("idp"));
+            int cant=Integer.parseInt(request.getParameter("Cantidad"));
+            for(int i = 0; i < listaCarrito.size(); i++){
+                if(listaCarrito.get(i).getIdProducto()==idpro)
+                    listaCarrito.get(i).setCantidad(cant);
+                    double st=listaCarrito.get(i).getPrecioCompra()*cant;
+                    listaCarrito.get(i).setSubTotal(st);
+            }
+        break;
         case "Carrito":
             totalPagar=0.0;            
             request.setAttribute("Carrito",listaCarrito);
